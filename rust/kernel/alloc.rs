@@ -2,17 +2,10 @@
 
 //! Implementation of the kernel's memory allocation infrastructure.
 
-#[cfg(not(any(test, testlib)))]
 pub mod allocator;
 pub mod kbox;
 pub mod kvec;
 pub mod layout;
-
-#[cfg(any(test, testlib))]
-pub mod allocator_test;
-
-#[cfg(any(test, testlib))]
-pub use self::allocator_test as allocator;
 
 pub use self::kbox::Box;
 pub use self::kbox::KBox;
@@ -94,10 +87,10 @@ pub mod flags {
     ///
     /// A lower watermark is applied to allow access to "atomic reserves". The current
     /// implementation doesn't support NMI and few other strict non-preemptive contexts (e.g.
-    /// raw_spin_lock). The same applies to [`GFP_NOWAIT`].
+    /// `raw_spin_lock`). The same applies to [`GFP_NOWAIT`].
     pub const GFP_ATOMIC: Flags = Flags(bindings::GFP_ATOMIC);
 
-    /// Typical for kernel-internal allocations. The caller requires ZONE_NORMAL or a lower zone
+    /// Typical for kernel-internal allocations. The caller requires `ZONE_NORMAL` or a lower zone
     /// for direct access but can direct reclaim.
     pub const GFP_KERNEL: Flags = Flags(bindings::GFP_KERNEL);
 
@@ -137,6 +130,14 @@ pub mod flags {
 /// - Implementers must ensure that all trait functions abide by the guarantees documented in the
 ///   `# Guarantees` sections.
 pub unsafe trait Allocator {
+    /// The minimum alignment satisfied by all allocations from this allocator.
+    ///
+    /// # Guarantees
+    ///
+    /// Any pointer allocated by this allocator is guaranteed to be aligned to `MIN_ALIGN` even if
+    /// the requested layout has a smaller alignment.
+    const MIN_ALIGN: usize;
+
     /// Allocate memory based on `layout` and `flags`.
     ///
     /// On success, returns a buffer represented as `NonNull<[u8]>` that satisfies the layout

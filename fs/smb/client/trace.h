@@ -140,7 +140,7 @@ DECLARE_EVENT_CLASS(smb3_rw_err_class,
 		__entry->len = len;
 		__entry->rc = rc;
 	),
-	TP_printk("\tR=%08x[%x] xid=%u sid=0x%llx tid=0x%x fid=0x%llx offset=0x%llx len=0x%x rc=%d",
+	TP_printk("R=%08x[%x] xid=%u sid=0x%llx tid=0x%x fid=0x%llx offset=0x%llx len=0x%x rc=%d",
 		  __entry->rreq_debug_id, __entry->rreq_debug_index,
 		  __entry->xid, __entry->sesid, __entry->tid, __entry->fid,
 		  __entry->offset, __entry->len, __entry->rc)
@@ -190,7 +190,7 @@ DECLARE_EVENT_CLASS(smb3_other_err_class,
 		__entry->len = len;
 		__entry->rc = rc;
 	),
-	TP_printk("\txid=%u sid=0x%llx tid=0x%x fid=0x%llx offset=0x%llx len=0x%x rc=%d",
+	TP_printk("xid=%u sid=0x%llx tid=0x%x fid=0x%llx offset=0x%llx len=0x%x rc=%d",
 		__entry->xid, __entry->sesid, __entry->tid, __entry->fid,
 		__entry->offset, __entry->len, __entry->rc)
 )
@@ -247,7 +247,7 @@ DECLARE_EVENT_CLASS(smb3_copy_range_err_class,
 		__entry->len = len;
 		__entry->rc = rc;
 	),
-	TP_printk("\txid=%u sid=0x%llx tid=0x%x source fid=0x%llx source offset=0x%llx target fid=0x%llx target offset=0x%llx len=0x%x rc=%d",
+	TP_printk("xid=%u sid=0x%llx tid=0x%x source fid=0x%llx source offset=0x%llx target fid=0x%llx target offset=0x%llx len=0x%x rc=%d",
 		__entry->xid, __entry->sesid, __entry->tid, __entry->target_fid,
 		__entry->src_offset, __entry->target_fid, __entry->target_offset, __entry->len, __entry->rc)
 )
@@ -298,7 +298,7 @@ DECLARE_EVENT_CLASS(smb3_copy_range_done_class,
 		__entry->target_offset = target_offset;
 		__entry->len = len;
 	),
-	TP_printk("\txid=%u sid=0x%llx tid=0x%x source fid=0x%llx source offset=0x%llx target fid=0x%llx target offset=0x%llx len=0x%x",
+	TP_printk("xid=%u sid=0x%llx tid=0x%x source fid=0x%llx source offset=0x%llx target fid=0x%llx target offset=0x%llx len=0x%x",
 		__entry->xid, __entry->sesid, __entry->tid, __entry->target_fid,
 		__entry->src_offset, __entry->target_fid, __entry->target_offset, __entry->len)
 )
@@ -482,7 +482,7 @@ DECLARE_EVENT_CLASS(smb3_fd_class,
 		__entry->tid = tid;
 		__entry->sesid = sesid;
 	),
-	TP_printk("\txid=%u sid=0x%llx tid=0x%x fid=0x%llx",
+	TP_printk("xid=%u sid=0x%llx tid=0x%x fid=0x%llx",
 		__entry->xid, __entry->sesid, __entry->tid, __entry->fid)
 )
 
@@ -521,7 +521,7 @@ DECLARE_EVENT_CLASS(smb3_fd_err_class,
 		__entry->sesid = sesid;
 		__entry->rc = rc;
 	),
-	TP_printk("\txid=%u sid=0x%llx tid=0x%x fid=0x%llx rc=%d",
+	TP_printk("xid=%u sid=0x%llx tid=0x%x fid=0x%llx rc=%d",
 		__entry->xid, __entry->sesid, __entry->tid, __entry->fid,
 		__entry->rc)
 )
@@ -794,7 +794,7 @@ DECLARE_EVENT_CLASS(smb3_cmd_err_class,
 		__entry->status = status;
 		__entry->rc = rc;
 	),
-	TP_printk("\tsid=0x%llx tid=0x%x cmd=%u mid=%llu status=0x%x rc=%d",
+	TP_printk("sid=0x%llx tid=0x%x cmd=%u mid=%llu status=0x%x rc=%d",
 		__entry->sesid, __entry->tid, __entry->cmd, __entry->mid,
 		__entry->status, __entry->rc)
 )
@@ -829,7 +829,7 @@ DECLARE_EVENT_CLASS(smb3_cmd_done_class,
 		__entry->cmd = cmd;
 		__entry->mid = mid;
 	),
-	TP_printk("\tsid=0x%llx tid=0x%x cmd=%u mid=%llu",
+	TP_printk("sid=0x%llx tid=0x%x cmd=%u mid=%llu",
 		__entry->sesid, __entry->tid,
 		__entry->cmd, __entry->mid)
 )
@@ -867,7 +867,7 @@ DECLARE_EVENT_CLASS(smb3_mid_class,
 		__entry->when_sent = when_sent;
 		__entry->when_received = when_received;
 	),
-	TP_printk("\tcmd=%u mid=%llu pid=%u, when_sent=%lu when_rcv=%lu",
+	TP_printk("cmd=%u mid=%llu pid=%u, when_sent=%lu when_rcv=%lu",
 		__entry->cmd, __entry->mid, __entry->pid, __entry->when_sent,
 		__entry->when_received)
 )
@@ -898,7 +898,7 @@ DECLARE_EVENT_CLASS(smb3_exit_err_class,
 		__assign_str(func_name);
 		__entry->rc = rc;
 	),
-	TP_printk("\t%s: xid=%u rc=%d",
+	TP_printk("%s: xid=%u rc=%d",
 		__get_str(func_name), __entry->xid, __entry->rc)
 )
 
@@ -924,7 +924,7 @@ DECLARE_EVENT_CLASS(smb3_sync_err_class,
 		__entry->ino = ino;
 		__entry->rc = rc;
 	),
-	TP_printk("\tino=%lu rc=%d",
+	TP_printk("ino=%lu rc=%d",
 		__entry->ino, __entry->rc)
 )
 
@@ -950,7 +950,7 @@ DECLARE_EVENT_CLASS(smb3_enter_exit_class,
 		__entry->xid = xid;
 		__assign_str(func_name);
 	),
-	TP_printk("\t%s: xid=%u",
+	TP_printk("%s: xid=%u",
 		__get_str(func_name), __entry->xid)
 )
 
@@ -1171,8 +1171,54 @@ DEFINE_EVENT(smb3_lease_done_class, smb3_##name,  \
 		__u64	lease_key_high),	\
 	TP_ARGS(lease_state, tid, sesid, lease_key_low, lease_key_high))
 
-DEFINE_SMB3_LEASE_DONE_EVENT(lease_done);
-DEFINE_SMB3_LEASE_DONE_EVENT(lease_not_found);
+DEFINE_SMB3_LEASE_DONE_EVENT(lease_ack_done);
+/* Tracepoint when a lease break request is received/entered (includes epoch and flags) */
+DECLARE_EVENT_CLASS(smb3_lease_enter_class,
+	TP_PROTO(__u32 lease_state,
+		__u32 flags,
+		__u16 epoch,
+		__u32 tid,
+		__u64 sesid,
+		__u64 lease_key_low,
+		__u64 lease_key_high),
+	TP_ARGS(lease_state, flags, epoch, tid, sesid, lease_key_low, lease_key_high),
+	TP_STRUCT__entry(
+		__field(__u32, lease_state)
+		__field(__u32, flags)
+		__field(__u16, epoch)
+		__field(__u32, tid)
+		__field(__u64, sesid)
+		__field(__u64, lease_key_low)
+		__field(__u64, lease_key_high)
+	),
+	TP_fast_assign(
+		__entry->lease_state = lease_state;
+		__entry->flags = flags;
+		__entry->epoch = epoch;
+		__entry->tid = tid;
+		__entry->sesid = sesid;
+		__entry->lease_key_low = lease_key_low;
+		__entry->lease_key_high = lease_key_high;
+	),
+	TP_printk("sid=0x%llx tid=0x%x lease_key=0x%llx%llx lease_state=0x%x flags=0x%x epoch=%u",
+		__entry->sesid, __entry->tid, __entry->lease_key_high,
+		__entry->lease_key_low, __entry->lease_state, __entry->flags, __entry->epoch)
+)
+
+#define DEFINE_SMB3_LEASE_ENTER_EVENT(name)        \
+DEFINE_EVENT(smb3_lease_enter_class, smb3_##name,  \
+	TP_PROTO(__u32 lease_state,            \
+		__u32 flags,               \
+		__u16 epoch,               \
+		__u32 tid,                 \
+		__u64 sesid,               \
+		__u64 lease_key_low,       \
+		__u64 lease_key_high),     \
+	TP_ARGS(lease_state, flags, epoch, tid, sesid, lease_key_low, lease_key_high))
+
+DEFINE_SMB3_LEASE_ENTER_EVENT(lease_break_enter);
+/* Lease not found: reuse lease_enter payload (includes epoch and flags) */
+DEFINE_SMB3_LEASE_ENTER_EVENT(lease_not_found);
 
 DECLARE_EVENT_CLASS(smb3_lease_err_class,
 	TP_PROTO(__u32	lease_state,
@@ -1213,7 +1259,7 @@ DEFINE_EVENT(smb3_lease_err_class, smb3_##name,  \
 		int	rc),			\
 	TP_ARGS(lease_state, tid, sesid, lease_key_low, lease_key_high, rc))
 
-DEFINE_SMB3_LEASE_ERR_EVENT(lease_err);
+DEFINE_SMB3_LEASE_ERR_EVENT(lease_ack_err);
 
 DECLARE_EVENT_CLASS(smb3_connect_class,
 	TP_PROTO(char *hostname,
